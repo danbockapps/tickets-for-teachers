@@ -7,10 +7,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-yarn dev      # Start dev server (http://localhost:3000)
-yarn build    # Production build
-yarn start    # Start production server
-yarn lint     # Run ESLint
+yarn dev          # Start dev server (http://localhost:3000)
+yarn build        # Production build
+yarn start        # Start production server
+yarn lint         # Run ESLint
+yarn db:generate  # Generate Drizzle migrations from schema
+yarn db:migrate   # Apply migrations to the database
+yarn db:studio    # Open Drizzle Studio
 ```
 
 No test framework is configured.
@@ -20,14 +23,29 @@ No test framework is configured.
 - **Next.js 16.2.4** — App Router. This is a new major version with breaking changes from prior versions. Read `node_modules/next/dist/docs/` before writing any Next.js-specific code.
 - **React 19.2.4**
 - **TypeScript**
-- **Tailwind CSS v4** — Configured via `postcss.config.mjs`. Uses `@import "tailwindcss"` syntax in CSS (not `@tailwind` directives). Theme customization uses `@theme inline {}` blocks in CSS rather than `tailwind.config.js`.
+- **Tailwind CSS v4** — Uses `@import "tailwindcss"` syntax (not `@tailwind` directives). Theme customization uses `@theme {}` blocks in CSS, not `tailwind.config.js`.
+- **DaisyUI v5** — Loaded via `@plugin "daisyui"` in `app/globals.css`. Theme customization uses `@plugin "daisyui/theme" {}` blocks.
+- **Drizzle ORM** — SQLite via `better-sqlite3`. Schema in `lib/schema.ts`, config in `drizzle.config.ts`. Migrations output to `drizzle/`.
+- **Lucia v3** — Session-based auth via `@lucia-auth/adapter-sqlite`. Initialized in `lib/auth.ts`.
+- **bcrypt** — Password hashing.
 
 ## Project Structure
 
-All application code lives under `app/` (Next.js App Router):
+```
+app/            # Next.js App Router pages and layouts
+lib/
+  db.ts         # Lazy-initialized SQLite + Drizzle proxy; exports `db` and `sqlite`
+  auth.ts       # Lucia instance; exports requireAuth() and getUser() helpers
+  schema.ts     # Drizzle table definitions and inferred types
+drizzle.config.ts
+data/           # SQLite database file (gitignored)
+drizzle/        # Generated migration files (gitignored)
+```
 
-- `app/layout.tsx` — Root layout with Geist font variables and global CSS
-- `app/page.tsx` — Home page (`/`)
-- `app/globals.css` — Global styles; defines CSS custom properties for background/foreground and Tailwind theme tokens
+## Auth pattern
 
-This is a freshly scaffolded project. There is no shared components directory, no API routes, and no data layer yet.
+`requireAuth()` (server components/actions) — validates session from cookie, redirects to `/login` if unauthenticated, returns the user object.
+
+`getUser()` — same but returns `null` instead of redirecting; for optional auth scenarios.
+
+Lucia needs the raw `sqlite` instance (not the Drizzle `db`) for its adapter — both are exported from `lib/db.ts`.
