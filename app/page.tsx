@@ -1,5 +1,9 @@
 import {getUser} from '@/lib/auth'
 import {logout} from '@/app/logout/actions'
+import {db} from '@/lib/db'
+import {users} from '@/lib/schema'
+import {eq} from 'drizzle-orm'
+import PreferencesForm from '@/app/preferences/PreferencesForm'
 
 export default async function Home() {
   const user = await getUser()
@@ -21,19 +25,31 @@ export default async function Home() {
     )
   }
 
+  const rows = await db.select().from(users).where(eq(users.id, user.id))
+  const dbUser = rows[0]
+  const savedPreferences: string[] = dbUser?.eventPreferences
+    ? JSON.parse(dbUser.eventPreferences)
+    : []
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-base-200">
-      <div className="card w-full max-w-sm bg-base-100 shadow-xl">
-        <div className="card-body items-center text-center">
-          <h1 className="card-title text-2xl">You're logged in</h1>
-          <p className="text-base-content/70">
-            Welcome back, {user.firstName} {user.lastName}.
-          </p>
-          <div className="card-actions mt-2">
+      <div className="card w-full max-w-md bg-base-100 shadow-xl">
+        <div className="card-body gap-6">
+          <div className="flex items-start justify-between">
+            <div>
+              <h1 className="card-title text-2xl">
+                Welcome, {user.firstName}!
+              </h1>
+              <p className="text-base-content/60 text-sm">{user.email}</p>
+            </div>
             <form action={logout}>
               <button type="submit" className="btn btn-ghost btn-sm">Sign out</button>
             </form>
           </div>
+
+          <div className="divider my-0" />
+
+          <PreferencesForm saved={savedPreferences} />
         </div>
       </div>
     </div>
