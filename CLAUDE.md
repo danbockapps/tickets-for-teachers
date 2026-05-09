@@ -53,3 +53,18 @@ drizzle/        # Generated migration files (gitignored)
 `getUser()` — same but returns `null` instead of redirecting; for optional auth scenarios.
 
 Lucia needs the raw `sqlite` instance (not the Drizzle `db`) for its adapter — both are exported from `lib/db.ts`.
+
+## User preferences
+
+Preference fields are collected at registration (`app/register/page.tsx`) and editable post-login on the home page (`app/page.tsx`). Both surfaces share `app/preferences/PreferenceFields.tsx` for the form controls, and `app/preferences/constants.ts` for any fixed option lists.
+
+The save logic lives in `app/preferences/actions.ts` (server action called by `PreferencesForm`) and `app/register/actions.ts`.
+
+### UI → database mapping
+
+| UI pattern | Form field name | DB column | DB type |
+|---|---|---|---|
+| Checkbox group (multi-select) | e.g. `eventTypes` | e.g. `event_preferences` | JSON array of strings stored in a `text` column |
+| Single checkbox | e.g. `adaAccessible` | e.g. `ada_accessible` | `integer` with `{mode: 'boolean'}`, defaults to `false` |
+
+New preference fields follow the same pattern: add the control to `PreferenceFields.tsx`, add the column to `lib/schema.ts`, and run `yarn db:generate && yarn db:migrate`.
