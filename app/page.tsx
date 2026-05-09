@@ -27,9 +27,11 @@ export default async function Home() {
 
   const rows = await db.select().from(users).where(eq(users.id, user.id))
   const dbUser = rows[0]
-  const savedPreferences: string[] = dbUser?.eventPreferences
-    ? JSON.parse(dbUser.eventPreferences)
-    : []
+  const preferences = {
+    eventTypes: dbUser?.eventPreferences ? JSON.parse(dbUser.eventPreferences) : [],
+    adaAccessible: dbUser?.adaAccessible ?? false,
+  }
+  const adaAccessible = dbUser?.adaAccessible ?? false
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-base-200">
@@ -49,7 +51,7 @@ export default async function Home() {
 
           <div className="divider my-0" />
 
-          <PreferencesForm saved={savedPreferences} />
+          <PreferencesForm preferences={preferences} />
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@ export const users = sqliteTable('users', {
   firstName: text('first_name').notNull(),
   lastName: text('last_name').notNull(),
   eventPreferences: text('event_preferences'), // JSON array of strings
+  adaAccessible: integer('ada_accessible', {mode: 'boolean'}).notNull().default(false),
   createdAt: text('created_at')
     .notNull()
     .$defaultFn(() => new Date().toISOString()),

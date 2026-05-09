@@ -28,8 +28,18 @@ export async function register(_prevState: unknown, formData: FormData) {
     return {error: 'An account with this email already exists.'}
   }
 
+  const eventTypes = formData.getAll('eventTypes') as string[]
+  const adaAccessible = formData.get('adaAccessible') === 'on'
+
   const id = generateToken()
-  await db.insert(users).values({id, email, firstName, lastName})
+  await db.insert(users).values({
+    id,
+    email,
+    firstName,
+    lastName,
+    eventPreferences: JSON.stringify(eventTypes),
+    adaAccessible,
+  })
 
   const token = await createMagicLinkToken(id)
   await sendMagicLink(email, token)

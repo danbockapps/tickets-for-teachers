@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `ada_accessible` integer DEFAULT false NOT NULL;

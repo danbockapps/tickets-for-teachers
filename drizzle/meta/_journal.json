@@ -15,6 +15,13 @@
       "when": 1777246291855,
       "tag": "0001_brainy_quasar",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1778351419400,
+      "tag": "0002_faulty_silver_surfer",
+      "breakpoints": true
     }
   ]
 }
