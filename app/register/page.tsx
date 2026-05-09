@@ -1,11 +1,11 @@
-"use client";
+'use client'
 
-import { useActionState } from "react";
-import PreferenceFields from "../preferences/PreferenceFields";
-import { register } from "./actions";
+import {useActionState} from 'react'
+import PreferenceFields from '../preferences/PreferenceFields'
+import {register} from './actions'
 
 export default function RegisterPage() {
-  const [state, action, pending] = useActionState(register, null);
+  const [state, action, pending] = useActionState(register, null)
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-base-200">
@@ -68,20 +68,14 @@ export default function RegisterPage() {
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={pending}
-              className="btn btn-primary mt-2"
-            >
-              {pending ? (
-                <span className="loading loading-spinner loading-sm" />
-              ) : null}
-              {pending ? "Sending link…" : "Create account"}
+            <button type="submit" disabled={pending} className="btn btn-primary mt-2">
+              {pending ? <span className="loading loading-spinner loading-sm" /> : null}
+              {pending ? 'Sending link…' : 'Create account'}
             </button>
           </form>
 
           <p className="text-base-content/60 mt-4 text-center text-sm">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <a href="/login" className="link link-primary">
               Sign in
             </a>
@@ -89,5 +83,5 @@ export default function RegisterPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }

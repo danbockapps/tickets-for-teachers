@@ -1,15 +1,15 @@
-"use client";
+'use client'
 
-import { useActionState } from "react";
-import { savePreferences } from "./actions";
-import PreferenceFields from "./PreferenceFields";
+import {useActionState} from 'react'
+import {savePreferences} from './actions'
+import PreferenceFields from './PreferenceFields'
 
 export default function PreferencesForm({
   preferences,
 }: {
   preferences: {eventTypes: string[]; adaAccessible: boolean}
 }) {
-  const [state, action, pending] = useActionState(savePreferences, null);
+  const [state, action, pending] = useActionState(savePreferences, null)
 
   return (
     <form action={action} className="flex flex-col gap-3">
@@ -21,16 +21,10 @@ export default function PreferencesForm({
         </div>
       )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="btn btn-primary mt-2 self-start"
-      >
-        {pending ? (
-          <span className="loading loading-spinner loading-sm" />
-        ) : null}
-        {pending ? "Saving…" : "Save preferences"}
+      <button type="submit" disabled={pending} className="btn btn-primary mt-2 self-start">
+        {pending ? <span className="loading loading-spinner loading-sm" /> : null}
+        {pending ? 'Saving…' : 'Save preferences'}
       </button>
     </form>
-  );
+  )
 }

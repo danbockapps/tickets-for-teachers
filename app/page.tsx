@@ -1,9 +1,9 @@
-import {getUser} from '@/lib/auth'
 import {logout} from '@/app/logout/actions'
+import PreferencesForm from '@/app/preferences/PreferencesForm'
+import {getUser} from '@/lib/auth'
 import {db} from '@/lib/db'
 import {users} from '@/lib/schema'
 import {eq} from 'drizzle-orm'
-import PreferencesForm from '@/app/preferences/PreferencesForm'
 
 export default async function Home() {
   const user = await getUser()
@@ -16,8 +16,12 @@ export default async function Home() {
             <h1 className="card-title text-2xl">Welcome</h1>
             <p className="text-base-content/70">You are not logged in.</p>
             <div className="card-actions mt-2">
-              <a href="/register" className="btn btn-primary">Create an account</a>
-              <a href="/login" className="btn btn-ghost">Sign in</a>
+              <a href="/register" className="btn btn-primary">
+                Create an account
+              </a>
+              <a href="/login" className="btn btn-ghost">
+                Sign in
+              </a>
             </div>
           </div>
         </div>
@@ -31,7 +35,6 @@ export default async function Home() {
     eventTypes: dbUser?.eventPreferences ? JSON.parse(dbUser.eventPreferences) : [],
     adaAccessible: dbUser?.adaAccessible ?? false,
   }
-  const adaAccessible = dbUser?.adaAccessible ?? false
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-base-200">
@@ -39,13 +42,13 @@ export default async function Home() {
         <div className="card-body gap-6">
           <div className="flex items-start justify-between">
             <div>
-              <h1 className="card-title text-2xl">
-                Welcome, {user.firstName}!
-              </h1>
+              <h1 className="card-title text-2xl">Welcome, {user.firstName}!</h1>
               <p className="text-base-content/60 text-sm">{user.email}</p>
             </div>
             <form action={logout}>
-              <button type="submit" className="btn btn-ghost btn-sm">Sign out</button>
+              <button type="submit" className="btn btn-ghost btn-sm">
+                Sign out
+              </button>
             </form>
           </div>
 

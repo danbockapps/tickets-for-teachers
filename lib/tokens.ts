@@ -24,13 +24,8 @@ export async function createMagicLinkToken(userId: string): Promise<string> {
   return token
 }
 
-export async function validateMagicLinkToken(
-  token: string,
-): Promise<{userId: string} | null> {
-  const rows = await db
-    .select()
-    .from(magicLinkTokens)
-    .where(eq(magicLinkTokens.id, token))
+export async function validateMagicLinkToken(token: string): Promise<{userId: string} | null> {
+  const rows = await db.select().from(magicLinkTokens).where(eq(magicLinkTokens.id, token))
 
   const row = rows[0]
   if (!row) return null

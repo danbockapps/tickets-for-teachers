@@ -4,7 +4,8 @@ import {lucia} from '@/lib/auth'
 import {cookies} from 'next/headers'
 
 function baseUrl(request: NextRequest): string {
-  const host = request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? 'localhost:3000'
+  const host =
+    request.headers.get('x-forwarded-host') ?? request.headers.get('host') ?? 'localhost:3000'
   const proto = request.headers.get('x-forwarded-proto') ?? 'https'
   return `${proto}://${host}`
 }
