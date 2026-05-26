@@ -3,9 +3,9 @@ import {EVENT_TYPES} from './constants'
 export default function PreferenceFields({
   preferences = {},
 }: {
-  preferences?: {eventTypes?: string[]; adaAccessible?: boolean}
+  preferences?: {eventTypes?: string[]; adaAccessible?: boolean; primaryWorksite?: string}
 }) {
-  const {eventTypes = [], adaAccessible = false} = preferences
+  const {eventTypes = [], adaAccessible = false, primaryWorksite = ''} = preferences
 
   return (
     <div className="flex flex-col gap-6">
@@ -25,6 +25,19 @@ export default function PreferenceFields({
             </label>
           ))}
         </div>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <label className="font-semibold" htmlFor="primaryWorksite">
+          Primary worksite/school(s)
+        </label>
+        <input
+          type="text"
+          id="primaryWorksite"
+          name="primaryWorksite"
+          defaultValue={primaryWorksite}
+          className="input input-bordered w-full"
+        />
       </div>
 
       <div className="flex flex-col gap-2">

@@ -65,6 +65,7 @@ export async function register(_prevState: unknown, formData: FormData) {
 
   const eventTypes = formData.getAll('eventTypes') as string[]
   const adaAccessible = formData.get('adaAccessible') === 'on'
+  const primaryWorksite = (formData.get('primaryWorksite') as string)?.trim() || null
 
   const id = generateToken()
   await db.insert(users).values({
@@ -76,6 +77,7 @@ export async function register(_prevState: unknown, formData: FormData) {
     lastName,
     eventPreferences: JSON.stringify(eventTypes),
     adaAccessible,
+    primaryWorksite,
   })
 
   const personalToken = await createMagicLinkToken(id, 'personal')
