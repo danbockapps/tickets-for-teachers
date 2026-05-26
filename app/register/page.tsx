@@ -74,6 +74,21 @@ export default function RegisterPage() {
               />
             </div>
 
+            <div>
+              <label className="label" htmlFor="phone">
+                <span className="label-text">Mobile phone number</span>
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                autoComplete="tel"
+                required
+                className="input input-bordered w-full"
+                placeholder="+1 (555) 000-0000"
+              />
+            </div>
+
             <PreferenceFields />
 
             {state?.error && (

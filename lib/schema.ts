@@ -10,6 +10,8 @@ export const users = sqliteTable('users', {
   lastName: text('last_name').notNull(),
   eventPreferences: text('event_preferences'), // JSON array of strings
   adaAccessible: integer('ada_accessible', {mode: 'boolean'}).notNull().default(false),
+  phone: text('phone').unique(),
+  phoneVerified: integer('phone_verified', {mode: 'boolean'}).notNull().default(false),
   createdAt: text('created_at')
     .notNull()
     .$defaultFn(() => new Date().toISOString()),

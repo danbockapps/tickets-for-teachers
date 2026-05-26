@@ -32,6 +32,11 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(new URL('/login?workEmailVerified=true', base))
   }
 
+  if (result.emailType === 'phone') {
+    await db.update(users).set({phoneVerified: true}).where(eq(users.id, result.userId))
+    return NextResponse.redirect(new URL('/login?phoneVerified=true', base))
+  }
+
   // Personal email: mark verified and create session
   await db.update(users).set({emailVerified: true}).where(eq(users.id, result.userId))
 

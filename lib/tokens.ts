@@ -2,7 +2,8 @@ import {db} from './db'
 import {magicLinkTokens} from './schema'
 import {eq, and} from 'drizzle-orm'
 
-const TOKEN_TTL_SECONDS = 15 * 60 // 15 minutes
+const DEFAULT_TTL_SECONDS = 15 * 60 // 15 minutes
+const PHONE_TTL_SECONDS = 60 * 60 // 1 hour (user must log in via email first)
 
 export function generateToken(): string {
   const bytes = new Uint8Array(32)
@@ -14,10 +15,11 @@ export function generateToken(): string {
 
 export async function createMagicLinkToken(
   userId: string,
-  emailType: 'personal' | 'work' = 'personal',
+  emailType: 'personal' | 'work' | 'phone' = 'personal',
 ): Promise<string> {
   const token = generateToken()
-  const expiresAt = Math.floor(Date.now() / 1000) + TOKEN_TTL_SECONDS
+  const ttl = emailType === 'phone' ? PHONE_TTL_SECONDS : DEFAULT_TTL_SECONDS
+  const expiresAt = Math.floor(Date.now() / 1000) + ttl
 
   // Invalidate existing tokens of the same type for this user
   await db
@@ -31,7 +33,7 @@ export async function createMagicLinkToken(
 
 export async function validateMagicLinkToken(
   token: string,
-): Promise<{userId: string; emailType: 'personal' | 'work'} | null> {
+): Promise<{userId: string; emailType: 'personal' | 'work' | 'phone'} | null> {
   const rows = await db.select().from(magicLinkTokens).where(eq(magicLinkTokens.id, token))
 
   const row = rows[0]
@@ -43,5 +45,5 @@ export async function validateMagicLinkToken(
   const now = Math.floor(Date.now() / 1000)
   if (row.expiresAt < now) return null
 
-  return {userId: row.userId, emailType: row.emailType as 'personal' | 'work'}
+  return {userId: row.userId, emailType: row.emailType as 'personal' | 'work' | 'phone'}
 }

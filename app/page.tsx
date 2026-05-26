@@ -1,5 +1,6 @@
 import {logout} from '@/app/logout/actions'
 import PreferencesForm from '@/app/preferences/PreferencesForm'
+import {resendPhoneVerification} from '@/app/preferences/actions'
 import {getUser} from '@/lib/auth'
 import {db} from '@/lib/db'
 import {users} from '@/lib/schema'
@@ -50,6 +51,31 @@ export default async function Home() {
                 Sign out
               </button>
             </form>
+          </div>
+
+          <div className="divider my-0" />
+
+          <div className="flex flex-col gap-1">
+            <p className="text-base-content/50 text-xs font-medium uppercase tracking-wide">
+              Contact
+            </p>
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-sm">{dbUser?.phone ?? '—'}</span>
+              {dbUser?.phoneVerified ? (
+                <span className="badge badge-success badge-sm">Verified</span>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <span className="badge badge-warning badge-sm">Unverified</span>
+                  {dbUser?.phone && (
+                    <form action={resendPhoneVerification}>
+                      <button type="submit" className="btn btn-ghost btn-xs">
+                        Resend text
+                      </button>
+                    </form>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="divider my-0" />

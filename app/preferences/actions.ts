@@ -5,6 +5,8 @@ import {db} from '@/lib/db'
 import {users} from '@/lib/schema'
 import {eq} from 'drizzle-orm'
 import {requireAuth} from '@/lib/auth'
+import {createMagicLinkToken} from '@/lib/tokens'
+import {sendPhoneVerification} from '@/lib/sms'
 
 export async function savePreferences(_prevState: unknown, formData: FormData) {
   const user = await requireAuth()
@@ -18,4 +20,17 @@ export async function savePreferences(_prevState: unknown, formData: FormData) {
 
   revalidatePath('/')
   return {success: true}
+}
+
+export async function resendPhoneVerification(): Promise<void> {
+  const user = await requireAuth()
+
+  const rows = await db.select().from(users).where(eq(users.id, user.id))
+  const dbUser = rows[0]
+  if (!dbUser?.phone || dbUser.phoneVerified) return
+
+  const token = await createMagicLinkToken(user.id, 'phone')
+  await sendPhoneVerification(dbUser.phone, token)
+
+  revalidatePath('/')
 }

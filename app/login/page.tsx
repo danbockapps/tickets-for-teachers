@@ -14,6 +14,7 @@ function LoginForm() {
   const searchParams = useSearchParams()
   const linkError = searchParams.get('error')
   const workEmailVerified = searchParams.get('workEmailVerified') === 'true'
+  const phoneVerified = searchParams.get('phoneVerified') === 'true'
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-base-200">
@@ -43,6 +44,12 @@ function LoginForm() {
             {workEmailVerified && (
               <div role="alert" className="alert alert-success">
                 <span>Work email verified! Sign in with your personal email below.</span>
+              </div>
+            )}
+
+            {phoneVerified && (
+              <div role="alert" className="alert alert-success">
+                <span>Phone number verified! Sign in with your personal email below.</span>
               </div>
             )}
 

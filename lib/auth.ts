@@ -23,6 +23,8 @@ export const lucia = new Lucia(adapter, {
     workEmailVerified: attributes.work_email_verified,
     firstName: attributes.first_name,
     lastName: attributes.last_name,
+    phone: attributes.phone,
+    phoneVerified: attributes.phone_verified,
   }),
 })
 
@@ -40,6 +42,8 @@ interface DatabaseUserAttributes {
   work_email_verified: boolean
   first_name: string
   last_name: string
+  phone: string | null
+  phone_verified: boolean
 }
 
 export async function requireAuth() {
