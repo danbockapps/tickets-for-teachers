@@ -11,12 +11,11 @@ Add new tables to `lib/schema.ts`:
 - [ ] `id` — primary key
 - [ ] `description` — short text
 - [ ] `quantity` — integer (number of tickets)
-- [ ] `event_date` — date
-- [ ] `event_time` — text (or time)
+- [ ] `event_at` — datetime (single field — events may be only minutes away, so we need both date and time together with precise ordering)
 - [ ] `location` — short text
 - [ ] `ada_accessible` — boolean
 - [ ] `parking_included` — boolean
-- [ ] `market_value_cents` — integer (store money in cents)
+- [ ] `market_value` — numeric (store money in dollars)
 - [ ] `section` — text, nullable
 - [ ] `row` — text, nullable
 - [ ] `seats` — text, nullable
@@ -59,8 +58,8 @@ One row per (ticket, user) offer.
 In `app/AdminView.tsx` (or a new route like `app/admin/tickets/page.tsx`):
 
 - [ ] List of tickets grouped or filtered by status with prominent badges:
-  - [ ] **Unclaimed** — most prominent
-  - [ ] **Claimed** — visible, includes claimer's name
+  - [ ] **Claimed** — most prominent (admin action required: send the ticket); includes claimer's name
+  - [ ] **Unclaimed** — visible, secondary prominence
   - [ ] **Sent** — hidden by default behind a "Show sent" toggle
 - [ ] Each row shows description, date, location, quantity, status badge.
 - [ ] Click to expand a ticket row to see:
@@ -77,12 +76,11 @@ Form fields:
 
 - [ ] Description (required)
 - [ ] Quantity (required, integer ≥ 1)
-- [ ] Date (required)
-- [ ] Time (required)
+- [ ] Date & time (required, single datetime input)
 - [ ] Location (required)
 - [ ] ADA accessible (checkbox)
 - [ ] Parking included (checkbox)
-- [ ] Estimated market value (required, dollars input — store as cents)
+- [ ] Estimated market value (required, dollars input — stored as dollars)
 - [ ] Section, Row, Seat(s), Notes (optional)
 - [ ] Domain selector (if admin has more than one)
 
@@ -92,26 +90,28 @@ Form fields:
 
 New page or modal (e.g. `app/admin/tickets/[id]/offer/page.tsx`):
 
-- [ ] Pick an unclaimed ticket (if entered from a list, ticket is pre-selected).
+- [ ] Entered from the "Offer" button on a specific ticket in the list — the ticket is already known, no picker needed.
 - [ ] Pick a domain (if admin has more than one; otherwise auto-selected).
 - [ ] Pick a method: Email or SMS.
-- [ ] User picker showing each user's:
+- [ ] User list showing each user's:
   - [ ] Name
   - [ ] Preferences (event types, ADA needs, primary worksite)
   - [ ] Contact for the selected method (email or phone)
-  - [ ] Disabled if user has no contact for the chosen method or is unverified
-- [ ] Multi-select with checkboxes; "Send" button at bottom.
+  - [ ] A "Send offer" button on each row
+  - [ ] If this ticket has already been offered to this user, show the prior offer's date and time near the button
+  - [ ] Button disabled if the most recent offer to this user was sent within the past 5 minutes (prevent accidental double-sends)
+  - [ ] Button also disabled if the user has no contact for the chosen method or is unverified
 
-Server action on send:
+Server action when "Send offer" is clicked for a single user:
 
-- [ ] For each selected user, generate a random token and insert a `ticket_offers` row.
+- [ ] Generate a random token and insert a `ticket_offers` row.
 - [ ] Send the message (email via existing email sender; SMS via existing SMS sender).
-- [ ] Log `offered` event per user in `ticket_events`.
-- [ ] Show success toast and return to ticket detail.
+- [ ] Log `offered` event in `ticket_events`.
+- [ ] Update the row in place (button becomes "Send again", show new offer timestamp).
 
 Message contents:
 
-- [ ] Short summary of the ticket (description, date, time, location).
+- [ ] Short summary of the ticket (description, date/time, location).
 - [ ] Personalized link: `/offer/[token]`.
 
 ## 5. Public: offer recipient page
