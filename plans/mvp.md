@@ -74,17 +74,17 @@ New page or modal (e.g. `app/admin/tickets/new/page.tsx`):
 
 Form fields:
 
-- [ ] Description (required)
-- [ ] Quantity (required, integer ≥ 1)
-- [ ] Date & time (required, single datetime input)
-- [ ] Location (required)
-- [ ] ADA accessible (checkbox)
-- [ ] Parking included (checkbox)
-- [ ] Estimated market value (required, dollars input — stored as dollars)
-- [ ] Section, Row, Seat(s), Notes (optional)
-- [ ] Domain selector (if admin has more than one)
+- [x] Description (required)
+- [x] Quantity (required, integer ≥ 1)
+- [x] Date & time (required, single datetime input)
+- [x] Location (required)
+- [x] ADA accessible (checkbox)
+- [x] Parking included (checkbox)
+- [x] Estimated market value (required, dollars input — stored as dollars)
+- [x] Section, Row, Seat(s), Notes (optional)
+- [x] Domain selector (if admin has more than one)
 
-- [ ] Server action: insert row with status `unclaimed`, log `created` event in `ticket_events`.
+- [x] Server action: insert row with status `unclaimed`, log `created` event in `ticket_events`.
 
 ## 4. Admin: offer ticket flow
 
@@ -179,7 +179,7 @@ On each ticket's expanded view, show `ticket_events` newest-first as a timeline:
 
 - [x] 1. Schema + migrations (tickets, ticket_offers, ticket_events).
 - [x] 2. Admin ticket list view (read-only).
-- [ ] 3. Create ticket form + action.
+- [x] 3. Create ticket form + action.
 - [ ] 4. Offer flow (user picker + send action) — start with email only.
 - [ ] 5. Public offer page with Accept/Decline + atomic claim.
 - [ ] 6. Add SMS as a second method.
