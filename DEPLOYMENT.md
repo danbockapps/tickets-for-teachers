@@ -132,6 +132,17 @@ docker logs tickets-for-teachers
 
 Migrations run automatically on container start (`docker-entrypoint.sh` → `migrate.mjs`).
 
+### Updating env vars only
+
+`.env.production` is passed via `--env-file` on `docker run`, and `.dockerignore` excludes `.env*` so the file never enters the build context. Changes take effect on container restart — no rebuild needed:
+
+```
+nano .env.production
+docker stop tickets-for-teachers
+docker rm tickets-for-teachers
+./scripts/docker-run.sh
+```
+
 ## Troubleshooting
 
 - **`docker-run.sh` fails with "container name already in use".** Stop and remove the old container first: `docker stop tickets-for-teachers && docker rm tickets-for-teachers`, then re-run.

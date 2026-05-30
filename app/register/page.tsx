@@ -82,7 +82,7 @@ export default function RegisterPage() {
             <div>
               <label className="label" htmlFor="phone">
                 <span className="label-text">Mobile phone number</span>
-                <span className="label-text-alt text-base-content/50">Optional</span>
+                <span className="label-text-alt text-base-content/50">(optional)</span>
               </label>
               <input
                 id="phone"
@@ -91,7 +91,6 @@ export default function RegisterPage() {
                 autoComplete="tel"
                 defaultValue={f?.phone}
                 className="input input-bordered w-full"
-                placeholder="+1 (555) 000-0000"
               />
             </div>
 
