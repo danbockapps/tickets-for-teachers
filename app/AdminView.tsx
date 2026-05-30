@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import CollapsibleTicketSection from '@/app/admin/CollapsibleTicketSection'
 import DashboardFilters from '@/app/admin/DashboardFilters'
 import {loadActivityByTicket} from '@/app/admin/loadActivityByTicket'
 import TicketSection from '@/app/admin/TicketSection'
@@ -10,14 +11,12 @@ import {and, desc, eq, gte, inArray, lte, type SQL} from 'drizzle-orm'
 export default async function AdminView({
   user,
   domains,
-  showSent,
   from,
   to,
   domainFilter,
 }: {
   user: {id: string; firstName: string; email: string}
   domains: string[]
-  showSent: boolean
   from: string | null
   to: string | null
   domainFilter: string | null
@@ -89,13 +88,7 @@ export default async function AdminView({
           </Link>
         </div>
 
-        <DashboardFilters
-          domains={domains}
-          from={from}
-          to={to}
-          domainFilter={domainFilter}
-          showSent={showSent}
-        />
+        <DashboardFilters domains={domains} from={from} to={to} domainFilter={domainFilter} />
 
         {rows.length === 0 ? (
           <div className="card bg-base-100 shadow">
@@ -111,7 +104,7 @@ export default async function AdminView({
               ticketsInSection={claimed}
             />
             <TicketSection title="Unclaimed" emphasis="normal" ticketsInSection={unclaimed} />
-            {showSent && <TicketSection title="Sent" emphasis="muted" ticketsInSection={sent} />}
+            <CollapsibleTicketSection title="Sent" emphasis="muted" ticketsInSection={sent} />
           </>
         )}
       </div>

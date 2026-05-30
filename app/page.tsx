@@ -10,7 +10,6 @@ export default async function Home({
   searchParams,
 }: {
   searchParams: Promise<{
-    showSent?: string
     from?: string
     to?: string
     domain?: string
@@ -27,7 +26,6 @@ export default async function Home({
       <AdminView
         user={user}
         domains={domains}
-        showSent={params.showSent === '1'}
         from={params.from ?? null}
         to={params.to ?? null}
         domainFilter={params.domain ?? null}

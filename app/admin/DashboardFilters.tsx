@@ -5,15 +5,13 @@ export default function DashboardFilters({
   from,
   to,
   domainFilter,
-  showSent,
 }: {
   domains: string[]
   from: string | null
   to: string | null
   domainFilter: string | null
-  showSent: boolean
 }) {
-  const hasActiveFilter = from || to || domainFilter || showSent
+  const hasActiveFilter = from || to || domainFilter
 
   return (
     <form
@@ -64,17 +62,6 @@ export default function DashboardFilters({
           </select>
         </label>
       )}
-
-      <label className="label cursor-pointer gap-2">
-        <input
-          type="checkbox"
-          name="showSent"
-          value="1"
-          defaultChecked={showSent}
-          className="checkbox checkbox-sm"
-        />
-        <span className="label-text text-sm">Show sent</span>
-      </label>
 
       <button type="submit" className="btn btn-sm btn-primary">
         Apply
