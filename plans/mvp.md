@@ -118,27 +118,27 @@ Message contents:
 
 New route `app/offer/[token]/page.tsx`:
 
-- [ ] Look up offer by token. If not found → 404.
-- [ ] Load the associated ticket and user (no login required — the token authenticates the request for this offer only).
-- [ ] Render based on ticket status:
-  - [ ] **Unclaimed**: show user's name, all ticket details, Accept and Decline buttons.
-  - [ ] **Claimed by someone else**: show "This ticket has already been claimed." message.
-  - [ ] **Claimed by this user**: show "You claimed this ticket." with ticket details.
-  - [ ] **Sent**: same as claimed-by-someone-else for other users; confirmation for the claimer.
+- [x] Look up offer by token. If not found → 404.
+- [x] Load the associated ticket and user (no login required — the token authenticates the request for this offer only).
+- [x] Render based on ticket status:
+  - [x] **Unclaimed**: show user's name, all ticket details, Accept and Decline buttons.
+  - [x] **Claimed by someone else**: show "This ticket has already been claimed." message.
+  - [x] **Claimed by this user**: show "You claimed this ticket." with ticket details.
+  - [x] **Sent**: same as claimed-by-someone-else for other users; confirmation for the claimer.
 
 ### Accept action
 
 Use a transaction (or `UPDATE ... WHERE status = 'unclaimed'`) to atomically:
 
-- [ ] Set `tickets.status = 'claimed'`, `claimed_by_user_id`, `claimed_at`.
-- [ ] Only if the row update affected 1 row, log `accepted` event and show success.
-- [ ] If 0 rows affected (someone else claimed first), reload the page and show the "already claimed" message.
+- [x] Set `tickets.status = 'claimed'`, `claimed_by_user_id`, `claimed_at`.
+- [x] Only if the row update affected 1 row, log `accepted` event and show success.
+- [x] If 0 rows affected (someone else claimed first), reload the page and show the "already claimed" message.
 
 ### Decline action
 
-- [ ] Set `ticket_offers.declined_at`.
-- [ ] Log `declined` event.
-- [ ] Show "Thanks, we've recorded your decline." Optionally allow them to undo if still unclaimed.
+- [x] Set `ticket_offers.declined_at`.
+- [x] Log `declined` event.
+- [x] Show "Thanks, we've recorded your decline." Optionally allow them to undo if still unclaimed.
 
 ## 6. Admin: status change and mark sent
 
@@ -181,7 +181,7 @@ On each ticket's expanded view, show `ticket_events` newest-first as a timeline:
 - [x] 2. Admin ticket list view (read-only).
 - [x] 3. Create ticket form + action.
 - [x] 4. Offer flow (user picker + send action) — start with email only.
-- [ ] 5. Public offer page with Accept/Decline + atomic claim.
+- [x] 5. Public offer page with Accept/Decline + atomic claim.
 - [ ] 6. Add SMS as a second method.
 - [ ] 7. Mark sent + manual status change.
 - [ ] 8. Audit log timeline on ticket detail.
