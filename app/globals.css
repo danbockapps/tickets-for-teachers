@@ -1,2 +1,105 @@
 @import 'tailwindcss';
-@plugin "daisyui";
+
+@plugin "daisyui" {
+  themes: false;
+}
+
+/* Tickets for Teachers brand theme — blue (#1B3D7D) + gold (#EEC55B) */
+@plugin "daisyui/theme" {
+  name: 'ticketsforteachers';
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Surfaces — white with a faint cool-blue tint */
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(97% 0.006 264.5);
+  --color-base-300: oklch(92.6% 0.012 259.8);
+  --color-base-content: oklch(27% 0.03 262);
+
+  /* Primary — brand blue */
+  --color-primary: oklch(37.4% 0.116 261.6);
+  --color-primary-content: oklch(96% 0.012 262);
+
+  /* Secondary — brand gold (needs dark text on top) */
+  --color-secondary: oklch(83.9% 0.132 88.1);
+  --color-secondary-content: oklch(31.9% 0.089 259.8);
+
+  /* Accent — brighter blue for highlights */
+  --color-accent: oklch(48.9% 0.152 261.5);
+  --color-accent-content: oklch(96% 0.012 262);
+
+  /* Neutral — dark blue-slate */
+  --color-neutral: oklch(27.8% 0.03 256.8);
+  --color-neutral-content: oklch(96% 0.006 264.5);
+
+  /* Semantic — info matches primary; others kept conventional for legibility */
+  --color-info: oklch(37.4% 0.116 261.6);
+  --color-info-content: oklch(96% 0.012 262);
+  --color-success: oklch(76% 0.177 163.223);
+  --color-success-content: oklch(37% 0.077 168.94);
+  --color-warning: oklch(83.9% 0.132 88.1);
+  --color-warning-content: oklch(31.9% 0.089 259.8);
+  --color-error: oklch(71% 0.194 13.428);
+  --color-error-content: oklch(27% 0.105 12.094);
+
+  /* Shape — slightly softer corners to echo the rounded ticket logo */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/* Dark brand variant — applied automatically via prefers-color-scheme: dark */
+@plugin "daisyui/theme" {
+  name: 'ticketsforteachersdark';
+  default: false;
+  prefersdark: true;
+  color-scheme: dark;
+
+  /* Surfaces — deep blue-slate, not pure black */
+  --color-base-100: oklch(23% 0.025 262);
+  --color-base-200: oklch(26% 0.026 262);
+  --color-base-300: oklch(30% 0.028 262);
+  --color-base-content: oklch(92% 0.01 262);
+
+  /* Primary — brand blue, lightened so it reads on a dark surface */
+  --color-primary: oklch(55% 0.15 261.5);
+  --color-primary-content: oklch(96% 0.012 262);
+
+  /* Secondary — brand gold (dark text on top, mirroring the logo) */
+  --color-secondary: oklch(83.9% 0.132 88.1);
+  --color-secondary-content: oklch(27% 0.06 262);
+
+  /* Accent — brighter blue for highlights */
+  --color-accent: oklch(66% 0.14 258);
+  --color-accent-content: oklch(20% 0.04 262);
+
+  /* Neutral — mid blue-slate */
+  --color-neutral: oklch(35% 0.025 262);
+  --color-neutral-content: oklch(92% 0.01 262);
+
+  /* Semantic — brightened for dark; info matches primary, warning stays brand gold */
+  --color-info: oklch(55% 0.15 261.5);
+  --color-info-content: oklch(96% 0.012 262);
+  --color-success: oklch(72% 0.16 163);
+  --color-success-content: oklch(22% 0.06 163);
+  --color-warning: oklch(83.9% 0.132 88.1);
+  --color-warning-content: oklch(27% 0.06 262);
+  --color-error: oklch(68% 0.19 22);
+  --color-error-content: oklch(20% 0.08 20);
+
+  /* Shape — same as the light theme */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}

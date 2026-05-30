@@ -1,3 +1,4 @@
+import Logo from '@/app/Logo'
 import {logout} from '@/app/logout/actions'
 import PreferencesForm from '@/app/preferences/PreferencesForm'
 import {resendPhoneVerification} from '@/app/preferences/actions'
@@ -21,6 +22,7 @@ export default async function LoggedInView({
     <div className="flex min-h-screen items-center justify-center bg-base-200">
       <div className="card w-full max-w-md bg-base-100 shadow-xl">
         <div className="card-body gap-6">
+          <Logo className="h-auto w-32" />
           <div className="flex items-start justify-between">
             <div>
               <h1 className="card-title text-2xl">Welcome, {user.firstName}!</h1>

@@ -2,6 +2,7 @@
 
 import {useSearchParams} from 'next/navigation'
 import {Suspense, useActionState} from 'react'
+import Logo from '@/app/Logo'
 import {login} from './actions'
 
 const errorMessages: Record<string, string> = {
@@ -20,6 +21,7 @@ function LoginForm() {
     <div className="flex min-h-screen items-center justify-center bg-base-200">
       <div className="card w-full max-w-sm bg-base-100 shadow-xl">
         <div className="card-body">
+          <Logo className="mx-auto mb-2 h-auto w-44" />
           <h1 className="card-title text-2xl">Sign in</h1>
           <p className="text-base-content/70 text-sm">
             Enter your email and we&apos;ll send you a sign-in link.

@@ -1,12 +1,13 @@
-import Link from 'next/link'
 import CollapsibleTicketSection from '@/app/admin/CollapsibleTicketSection'
 import DashboardFilters from '@/app/admin/DashboardFilters'
 import {loadActivityByTicket} from '@/app/admin/loadActivityByTicket'
 import TicketSection from '@/app/admin/TicketSection'
+import Logo from '@/app/Logo'
 import {logout} from '@/app/logout/actions'
 import {db} from '@/lib/db'
 import {tickets, users} from '@/lib/schema'
 import {and, desc, eq, gte, inArray, lte, type SQL} from 'drizzle-orm'
+import Link from 'next/link'
 
 export default async function AdminView({
   user,
@@ -68,9 +69,10 @@ export default async function AdminView({
   return (
     <div className="min-h-screen bg-base-200 py-8">
       <div className="mx-auto flex max-w-3xl flex-col gap-6 px-4">
+        <Logo className="h-auto w-32" />
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold">Admin — {user.firstName}</h1>
+            <h1 className="text-2xl font-bold">Site Administration</h1>
             <p className="text-base-content/60 text-sm">
               {user.email} · {domains.join(', ') || 'no domains'}
             </p>

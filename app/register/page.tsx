@@ -1,6 +1,7 @@
 'use client'
 
 import {useActionState} from 'react'
+import Logo from '@/app/Logo'
 import PreferenceFields from '../preferences/PreferenceFields'
 import {register} from './actions'
 
@@ -12,6 +13,7 @@ export default function RegisterPage() {
     <div className="flex min-h-screen items-center justify-center bg-base-200">
       <div className="card w-full max-w-md bg-base-100 shadow-xl">
         <div className="card-body">
+          <Logo className="mx-auto mb-2 h-auto w-44" />
           <h1 className="card-title text-2xl">Create your account</h1>
           <p className="text-base-content/70 text-sm">
             We&apos;ll send a sign-in link to your email.
