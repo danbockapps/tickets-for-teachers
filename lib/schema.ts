@@ -1,3 +1,4 @@
+import {sql} from 'drizzle-orm'
 import {index, integer, primaryKey, real, sqliteTable, text} from 'drizzle-orm/sqlite-core'
 
 export type TicketStatus = 'unclaimed' | 'claimed' | 'sent'
@@ -51,9 +52,11 @@ export const magicLinkTokens = sqliteTable(
 
 export const domains = sqliteTable('domains', {
   domain: text('domain').primaryKey(),
+  // DB-level default so raw SQL inserts (e.g. the admin-granting flow) get a
+  // timestamp without specifying one. Format matches `new Date().toISOString()`.
   createdAt: text('created_at')
     .notNull()
-    .$defaultFn(() => new Date().toISOString()),
+    .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
 })
 
 // Bridge table: one row = "this user is an admin for this domain".

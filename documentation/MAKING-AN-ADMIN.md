@@ -38,11 +38,11 @@ SELECT id, email, first_name, last_name FROM users WHERE email = 'teacher@gmail.
 ### 2. Make sure the domain exists
 
 Every domain must have a `domains` row before it can be referenced. `INSERT OR
-IGNORE` is safe to run even if it already exists:
+IGNORE` is safe to run even if it already exists; `created_at` is filled in
+automatically by a column default:
 
 ```sql
-INSERT OR IGNORE INTO domains (domain, created_at)
-VALUES ('springfield.edu', strftime('%Y-%m-%dT%H:%M:%fZ', 'now'));
+INSERT OR IGNORE INTO domains (domain) VALUES ('springfield.edu');
 ```
 
 ### 3. Grant admin for the domain
@@ -57,8 +57,7 @@ VALUES ('springfield.edu', '<the-user-id-from-step-1>');
 For multiple domains, run step 2 for each domain, then insert one row per domain:
 
 ```sql
-INSERT OR IGNORE INTO domains (domain, created_at)
-VALUES ('shelbyville.edu', strftime('%Y-%m-%dT%H:%M:%fZ', 'now'));
+INSERT OR IGNORE INTO domains (domain) VALUES ('shelbyville.edu');
 
 INSERT INTO domain_admins (domain, user_id) VALUES
   ('springfield.edu', '<the-user-id>'),
