@@ -13,6 +13,7 @@ type Fields = {
   eventAt: string
   location: string
   parkingIncluded: boolean
+  highValue: boolean
   marketValue: string
   section: string
   row: string
@@ -34,6 +35,7 @@ export async function createTicket(
   const eventAt = (formData.get('eventAt') as string)?.trim() ?? ''
   const location = (formData.get('location') as string)?.trim() ?? ''
   const parkingIncluded = formData.get('parkingIncluded') === 'on'
+  const highValue = formData.get('highValue') === 'on'
   const marketValueRaw = (formData.get('marketValue') as string)?.trim() ?? ''
   const section = (formData.get('section') as string)?.trim() ?? ''
   const row = (formData.get('row') as string)?.trim() ?? ''
@@ -48,6 +50,7 @@ export async function createTicket(
     eventAt,
     location,
     parkingIncluded,
+    highValue,
     marketValue: marketValueRaw,
     section,
     row,
@@ -90,6 +93,7 @@ export async function createTicket(
       eventAt: eventDate.toISOString(),
       location,
       parkingIncluded,
+      highValue,
       marketValue,
       section: section || null,
       row: row || null,

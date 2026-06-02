@@ -88,6 +88,7 @@ export const tickets = sqliteTable(
     location: text('location').notNull(),
     adaAccessible: integer('ada_accessible', {mode: 'boolean'}).notNull().default(false),
     parkingIncluded: integer('parking_included', {mode: 'boolean'}).notNull().default(false),
+    highValue: integer('high_value', {mode: 'boolean'}).notNull().default(false),
     marketValue: real('market_value').notNull(), // dollars
     section: text('section'),
     row: text('row'),

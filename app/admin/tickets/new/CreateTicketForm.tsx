@@ -132,6 +132,22 @@ export default function CreateTicketForm({
         </label>
       </div>
 
+      <div>
+        <label className="label cursor-pointer justify-start gap-2">
+          <input
+            type="checkbox"
+            name="highValue"
+            defaultChecked={f?.highValue}
+            className="checkbox"
+          />
+          <span className="label-text">High-value ticket</span>
+        </label>
+        <p className="mt-1 text-xs text-base-content/60">
+          The recipient of a high-value ticket may be ineligible to receive additional high-value
+          tickets for a period of time.
+        </p>
+      </div>
+
       <div className="divider my-0 text-xs">Optional</div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">

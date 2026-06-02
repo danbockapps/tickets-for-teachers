@@ -1,0 +1,1 @@
+ALTER TABLE `tickets` ADD `high_value` integer DEFAULT false NOT NULL;
